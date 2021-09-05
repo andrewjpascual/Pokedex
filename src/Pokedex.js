@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "5px",
   },
   searchInput: {
-    width: "200px",
+    width: "300px",
     margin: "5px",
   },
 }));
@@ -84,7 +84,7 @@ const Pokedex = (props) => {
 
     console.log(pokemonData[`${pokemonId}`]);
     return (
-      <Grid item xs={4} key={pokemonId}>
+      <Grid item xs={3} key={pokemonId}>
         <Card onClick={() => history.push(`/${pokemonId}`)}>
           <CardMedia
             className={classes.cardMedia}
@@ -115,7 +115,7 @@ const Pokedex = (props) => {
         </Toolbar>
       </AppBar>
       {pokemonData ? (
-        <Grid container spacing={2} className={classes.pokedexContainer}>
+        <Grid container spacing={4} className={classes.pokedexContainer}>
           {Object.keys(pokemonData).map(
             (pokemonId) =>
               pokemonData[pokemonId].name.includes(filter) &&
