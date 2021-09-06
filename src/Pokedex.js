@@ -9,7 +9,6 @@ import {
   InputBase,
   CircularProgress,
   Typography,
-  TextField,
 } from "@material-ui/core";
 import { makeStyles, alpha } from "@material-ui/core/styles";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -17,9 +16,11 @@ import SearchIcon from "@material-ui/icons/Search";
 import { toFirstCharUppercase } from "./constant";
 
 import axios from "axios";
+
 import logo from "./img/logo.png";
 import leftPad from "left-pad";
 import "@fontsource/alata";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const useStyles = makeStyles((theme) => ({
   pokedexContainer: {
@@ -35,10 +36,24 @@ const useStyles = makeStyles((theme) => ({
       transform: "scale(1.02)",
     },
   },
+  cardMediaBG: {
+    backgroundColor: "#cccccc",
+    height: "190px",
+  },
+  cardMediaCircle: {
+    marginTop: "10px",
+    marginLeft: "auto",
+    marginRight: "auto",
+    width: "130px",
+    height: "130px",
+    borderRadius: "50%",
+    backgroundColor: "#e6e6e6",
+  },
   cardMedia: {
     margin: "auto",
-    width: "150px",
     height: "150px",
+    width: "150px",
+    position: "static",
   },
   cardContent: {
     textAlign: "center",
@@ -93,8 +108,9 @@ const useStyles = makeStyles((theme) => ({
   },
   pokeID: {
     fontFamily: "alata",
-
     fontSize: "25px",
+    height: "35px",
+    width: "80px",
   },
 }));
 
@@ -145,12 +161,21 @@ const Pokedex = (props) => {
           raised={true}
         >
           <CardActionArea>
-            <Typography className={classes.pokeID}>{` #${leftPad(
-              id,
-              3,
-              0
-            )}`}</Typography>{" "}
-            <CardMedia className={classes.cardMedia} image={sprite}></CardMedia>
+            <div className={classes.cardMediaBG}>
+              <Typography className={classes.pokeID}>
+                {` #${leftPad(id, 3, 0)}`}
+              </Typography>
+              <CardMedia className={classes.cardMediaCircle}>
+                <LazyLoadImage
+                  alt="image-pokemon"
+                  src={sprite}
+                  visibleByDefault={false}
+                  delayMethod={"debounce"}
+                  effect="blur"
+                  className={classes.cardMedia}
+                />
+              </CardMedia>
+            </div>
             <CardContent className={classes.cardContent}>
               <Typography
                 className={classes.pokeName}
