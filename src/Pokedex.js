@@ -6,7 +6,7 @@ import {
   Card,
   CardMedia,
   CardContent,
-  CardHeader,
+  InputBase,
   CircularProgress,
   Typography,
   TextField,
@@ -15,24 +15,30 @@ import { makeStyles, alpha } from "@material-ui/core/styles";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import SearchIcon from "@material-ui/icons/Search";
 import { toFirstCharUppercase } from "./constant";
+
 import axios from "axios";
 import logo from "./img/logo.png";
+import leftPad from "left-pad";
+import "@fontsource/alata";
 
 const useStyles = makeStyles((theme) => ({
   pokedexContainer: {
     paddingTop: "20px",
-    paddingLeft: "50px",
-    paddingRight: "50px",
+    paddingLeft: "10%",
+    paddingRight: "10%",
+    marginTop: "80px",
   },
   cardStyle: {
     backgroundColor: "white",
+
+    "&:hover": {
+      transform: "scale(1.02)",
+    },
   },
   cardMedia: {
     margin: "auto",
     width: "150px",
     height: "150px",
-    backgroundColor: "#e6e6e6",
-    borderRadius: "50%",
   },
   cardContent: {
     textAlign: "center",
@@ -40,26 +46,55 @@ const useStyles = makeStyles((theme) => ({
   navStyle: {
     backgroundColor: "#ff3333",
   },
-  searchContainer: {
-    display: "flex",
+  search: {
+    position: "relative",
+    borderRadius: theme.shape.borderRadius,
     backgroundColor: alpha(theme.palette.common.white, 0.15),
-    paddingLeft: "20px",
-    paddingRight: "20px",
-    marginTop: "5px",
-    marginBottom: "5px",
+    "&:hover": {
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
+    },
+    marginRight: theme.spacing(2),
+    marginLeft: 0,
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: theme.spacing(3),
+      width: "auto",
+    },
   },
   searchIcon: {
-    alignSelf: "flex-end",
-    marginBottom: "5px",
+    padding: theme.spacing(0, 2),
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  searchInput: {
-    width: "200px",
-    margin: "5px",
+  inputRoot: {
+    color: "inherit",
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "20ch",
+    },
   },
   logo: {
     maxWidth: "180px",
-    marginLeft: "25px",
-    marginRight: "25px",
+    marginLeft: "30px",
+    marginRight: "30px",
+  },
+  pokeName: {
+    fontFamily: "alata",
+  },
+  pokeID: {
+    fontFamily: "alata",
+
+    fontSize: "25px",
   },
 }));
 
@@ -76,11 +111,10 @@ const Pokedex = (props) => {
     setFilter(e.target.value);
   };
 
-  //Grabs data from the api, grabbing only the id, name
-  //and sprite image for the cards
+  //Mapping info from API into variables
   useEffect(() => {
     axios
-      .get("https://pokeapi.co/api/v2/pokemon?limit=300")
+      .get("https://pokeapi.co/api/v2/pokemon?limit=150")
       .then(function (response) {
         const { data } = response;
         const { results } = data;
@@ -98,7 +132,7 @@ const Pokedex = (props) => {
       });
   }, []);
 
-  //This deals with how each card looks
+  //This deals with how each individual card looks
   const getPokemonCard = (pokemonId) => {
     const { id, name, sprite } = pokemonData[pokemonId];
 
@@ -106,18 +140,22 @@ const Pokedex = (props) => {
     return (
       <Grid item xs={4} key={pokemonId} className={classes.grid}>
         <Card
-          onClick={() => history.push(`/${pokemonId}`)}
           className={classes.cardStyle}
+          onClick={() => history.push(`/${pokemonId}`)}
           raised={true}
         >
           <CardActionArea>
-            <CardHeader variant="h3" title={`# ${id}`} />
-
-            <CardMedia className={classes.cardMedia} image={sprite} />
+            <Typography className={classes.pokeID}>{` #${leftPad(
+              id,
+              3,
+              0
+            )}`}</Typography>{" "}
+            <CardMedia className={classes.cardMedia} image={sprite}></CardMedia>
             <CardContent className={classes.cardContent}>
-              <Typography variant="h4">{`${toFirstCharUppercase(
-                name
-              )}`}</Typography>
+              <Typography
+                className={classes.pokeName}
+                variant="h4"
+              >{`${toFirstCharUppercase(name)}`}</Typography>
             </CardContent>
           </CardActionArea>
         </Card>
@@ -128,21 +166,28 @@ const Pokedex = (props) => {
   //This deals with the layout of the main page
   return (
     <>
-      <AppBar position="static" className={classes.navStyle}>
+      <AppBar className={classes.navStyle}>
         <Toolbar>
           <img src={logo} alt="logo" className={classes.logo} />
-          <div className={classes.searchContainer}>
-            <SearchIcon className={classes.searchIcon} />
-            <TextField
+
+          <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <InputBase
+              placeholder="Search for a pokémon..."
               onChange={handleSearchChange}
-              className={classes.searchInput}
-              label="Search..."
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              inputProps={{ "aria-label": "search" }}
             />
           </div>
         </Toolbar>
       </AppBar>
       {pokemonData ? (
-        <Grid container spacing={6} className={classes.pokedexContainer}>
+        <Grid container spacing={2} className={classes.pokedexContainer}>
           {Object.keys(pokemonData).map(
             (pokemonId) =>
               pokemonData[pokemonId].name.includes(filter) &&
