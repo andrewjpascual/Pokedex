@@ -30,30 +30,15 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "80px",
   },
   cardStyle: {
-    backgroundColor: "white",
-
     "&:hover": {
       transform: "scale(1.02)",
     },
   },
-  cardMediaBG: {
-    backgroundColor: "#cccccc",
-    height: "190px",
-  },
-  cardMediaCircle: {
-    marginTop: "10px",
-    marginLeft: "auto",
-    marginRight: "auto",
-    width: "130px",
-    height: "130px",
-    borderRadius: "50%",
-    backgroundColor: "#e6e6e6",
-  },
+  stop: {},
   cardMedia: {
     margin: "auto",
-    height: "150px",
-    width: "150px",
-    position: "static",
+    height: "120px",
+    width: "120px",
   },
   cardContent: {
     textAlign: "center",
@@ -114,8 +99,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-//passing through our styles from above
-//using pokemonData as a state from "mockData"
 const Pokedex = (props) => {
   const { history } = props;
   const classes = useStyles();
@@ -130,52 +113,54 @@ const Pokedex = (props) => {
   //Mapping info from API into variables
   useEffect(() => {
     axios
-      .get("https://pokeapi.co/api/v2/pokemon?limit=150")
+      .get("https://pokeapi.co/api/v2/pokemon?limit=151")
       .then(function (response) {
         const { data } = response;
         const { results } = data;
+
         const newPokemonData = {};
         results.forEach((pokemon, index) => {
           newPokemonData[index + 1] = {
             id: index + 1,
             name: pokemon.name,
-            sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${
+            sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
               index + 1
             }.png`,
           };
         });
+
         setPokemonData(newPokemonData);
       });
   }, []);
 
-  //This deals with how each individual card looks
+  //This deals with how each individual card looks and works
   const getPokemonCard = (pokemonId) => {
     const { id, name, sprite } = pokemonData[pokemonId];
 
     console.log(pokemonData[`${pokemonId}`]);
     return (
-      <Grid item xs={4} key={pokemonId} className={classes.grid}>
+      <Grid item xs={4} key={pokemonId}>
         <Card
           className={classes.cardStyle}
           onClick={() => history.push(`/${pokemonId}`)}
           raised={true}
         >
-          <CardActionArea>
-            <div className={classes.cardMediaBG}>
-              <Typography className={classes.pokeID}>
-                {` #${leftPad(id, 3, 0)}`}
-              </Typography>
-              <CardMedia className={classes.cardMediaCircle}>
-                <LazyLoadImage
-                  alt="image-pokemon"
-                  src={sprite}
-                  visibleByDefault={false}
-                  delayMethod={"debounce"}
-                  effect="blur"
-                  className={classes.cardMedia}
-                />
-              </CardMedia>
-            </div>
+          <CardActionArea className={classes.stop}>
+            <Typography className={classes.pokeID}>
+              {` #${leftPad(id, 3, 0)}`}
+            </Typography>
+
+            <CardMedia className={classes.cardMedia}>
+              <LazyLoadImage
+                alt="image-pokemon"
+                src={sprite}
+                visibleByDefault={false}
+                delayMethod={"debounce"}
+                effect="blur"
+                height="150px"
+              />
+            </CardMedia>
+
             <CardContent className={classes.cardContent}>
               <Typography
                 className={classes.pokeName}

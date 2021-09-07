@@ -21,7 +21,7 @@ const Pokemon = (props) => {
       });
   }, [pokemonId]);
 
-  //using the pokemon state var, call the mockdata based on pokemonId
+  //using the pokemon state var, call the API based on pokemonId
   //then use whatever variables necessary
   const generatePokemonJSX = () => {
     const { name, id, species, height, weight, types, sprites } = pokemon;
