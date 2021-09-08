@@ -24,7 +24,7 @@ const newStyles = makeStyles((theme) => ({
     paddingTop: "200px",
   },
   cardStyle: {
-    marginTop: "80px",
+    marginTop: "150px",
     marginLeft: "25%",
 
     textAlign: "center",
@@ -76,7 +76,16 @@ const Pokemon = (props) => {
   //using the pokemon state var, call the API based on pokemonId
   //then use whatever variables necessary
   const generatePokemonJSX = () => {
-    const { name, id, species, height, weight, types, sprites } = pokemon;
+    const {
+      name,
+      id,
+      species,
+      height,
+      weight,
+      types,
+      sprites,
+      base_experience,
+    } = pokemon;
 
     const fullPic = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
 
@@ -100,8 +109,8 @@ const Pokemon = (props) => {
 
             <Grid item xs={6}>
               <Typography variant="h3">Pokémon Info</Typography>
-              <Typography>Height : {height} </Typography>
-              <Typography>Weight : {weight} </Typography>
+              <Typography>Height : {height / 10} </Typography>
+              <Typography>Weight : {weight / 10} </Typography>
               <Typography variant="h4">Types : </Typography>
               <Typography>Types : </Typography>
               {types.map((typeInfo) => {
@@ -109,6 +118,8 @@ const Pokemon = (props) => {
                 const { name } = type;
                 return <li> {`${name}`}</li>;
               })}
+
+              <Typography>basexp : {base_experience} </Typography>
             </Grid>
           </Grid>
         </Card>
