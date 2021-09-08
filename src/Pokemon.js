@@ -10,7 +10,7 @@ import {
   CardContent,
 } from "@material-ui/core";
 import { makeStyles, alpha } from "@material-ui/core/styles";
-import { toFirstCharUppercase } from "./constant";
+import { toFirstCharUppercase, getColor } from "./constant";
 import axios from "axios";
 import leftPad from "left-pad";
 import "@fontsource/alata";
@@ -36,7 +36,22 @@ const newStyles = makeStyles((theme) => ({
     marginRight: "100px",
     textAlign: "center",
   },
-  cardBG: {},
+
+  pokeID: {
+    fontFamily: "alata",
+    fontSize: "30px",
+    height: "40px",
+    width: "80px",
+    color: "white",
+  },
+  pokeName: {
+    fontFamily: "alata",
+    color: "white",
+  },
+  cardPic: {
+    height: "350px",
+    width: "350px",
+  },
 }));
 
 const Pokemon = (props) => {
@@ -65,19 +80,22 @@ const Pokemon = (props) => {
 
     const fullPic = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
 
+    const ccolor = pokemon.types["0"].type.name;
     return (
       <div className={classes.root}>
         <Card className={classes.cardStyle} raised={true}>
           <Grid container spacing={2} classname={classes.Fullgrid}>
             <Grid item xs={6}>
-              <div className={classes.cardBG}>
+              <div style={{ backgroundColor: getColor(types) }}>
                 <Typography variant="h1" className={classes.pokeID}>
                   {` #${leftPad(id, 3, 0)}`}
                 </Typography>
-                <img src={fullPic}></img>
-                <Typography>{pokemon.types["0"].type.name}</Typography>
+                <Typography variant="h2" className={classes.pokeName}>
+                  {toFirstCharUppercase(name)}
+                </Typography>
+
+                <img src={fullPic} className={classes.cardPic}></img>
               </div>
-              <Typography variant="h1">{toFirstCharUppercase(name)}</Typography>
             </Grid>
 
             <Grid item xs={6}>

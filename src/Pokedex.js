@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
       transform: "scale(1.02)",
     },
   },
-  stop: {},
+
   cardMedia: {
     margin: "auto",
     height: "120px",
