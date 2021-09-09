@@ -42,3 +42,9 @@ export const getColor = (types) => {
   if (types["1"].type.name === "water") return "#539ddf";
   return "";
 };
+
+const inches = (pokemon.height * 3.93701).toFixed(0);
+const feet = Math.floor(Number(inches) / 12);
+{
+  ` #${leftPad(id, 3, 0)}`;
+}
