@@ -8,7 +8,11 @@ import {
   Card,
   CardMedia,
   CardContent,
+  Paper,
+  Container,
 } from "@material-ui/core";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
 import { makeStyles, alpha } from "@material-ui/core/styles";
 import { toFirstCharUppercase, getColor } from "./constant";
 import axios from "axios";
@@ -19,7 +23,7 @@ const newStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  Fullgrid: {
+  fullCard: {
     margin: "auto",
     paddingTop: "200px",
   },
@@ -52,14 +56,40 @@ const newStyles = makeStyles((theme) => ({
     height: "350px",
     width: "350px",
   },
+  detailGrid: {
+    marginTop: "50px",
+  },
+  detailVariablesCentered: {
+    margin: "0 auto",
+  },
+  cardTitle: {
+    margin: "auto",
+    marginTop: "50px",
+    fontFamily: "alata",
+  },
+  detailVariablesV: {
+    fontFamily: "Verdana",
+    fontSize: "20px",
+  },
+  detailVariablesO: {
+    fontFamily: "alata",
+    fontSize: "20px",
+  },
 }));
 
 const Pokemon = (props) => {
   const { history, match } = props;
   const { params } = match;
   const { pokemonId } = params;
+
   const [pokemon, setPokemon] = useState(undefined);
   const classes = newStyles();
+
+  //let one = `https://pokeapi.co/api/v2/pokemon/${pokemonId}/`;
+  //let two = `https://pokeapi.co/api/v2/pokemon-species/${pokemonId}/`;
+
+  //const reqOne = axios.get(one);
+  //const reqTwo = axios.get(two);
 
   useEffect(() => {
     axios
@@ -89,11 +119,10 @@ const Pokemon = (props) => {
 
     const fullPic = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
 
-    const ccolor = pokemon.types["0"].type.name;
     return (
       <div className={classes.root}>
         <Card className={classes.cardStyle} raised={true}>
-          <Grid container spacing={2} classname={classes.Fullgrid}>
+          <Grid container spacing={2} classname={classes.fullCard}>
             <Grid item xs={6}>
               <div style={{ backgroundColor: getColor(types) }}>
                 <Typography variant="h1" className={classes.pokeID}>
@@ -103,23 +132,68 @@ const Pokemon = (props) => {
                   {toFirstCharUppercase(name)}
                 </Typography>
 
-                <img src={fullPic} className={classes.cardPic}></img>
+                <img
+                  src={fullPic}
+                  alt="Pokemon"
+                  className={classes.cardPic}
+                ></img>
               </div>
             </Grid>
 
             <Grid item xs={6}>
-              <Typography variant="h3">Pokémon Info</Typography>
-              <Typography>Height : {height / 10} </Typography>
-              <Typography>Weight : {weight / 10} </Typography>
-              <Typography variant="h4">Types : </Typography>
-              <Typography>Types : </Typography>
-              {types.map((typeInfo) => {
-                const { type } = typeInfo;
-                const { name } = type;
-                return <li> {`${name}`}</li>;
-              })}
+              <Typography variant="h5" className={classes.cardTitle}>
+                Pokémon Data
+              </Typography>
+              <Grid container spacing={0} className={classes.detailGrid}>
+                <Grid item xs={3} className={classes.detailVariablesCentered}>
+                  <Typography className={classes.detailVariablesV}>
+                    Height :
+                  </Typography>
+                  <Typography className={classes.detailVariablesV}>
+                    Weight :
+                  </Typography>
+                  <Typography className={classes.detailVariablesV}>
+                    Base Exp :
+                  </Typography>
+                </Grid>
+                <Grid item xs={3} className={classes.detailVariablesCentered}>
+                  <Typography className={classes.detailVariablesO}>
+                    {height / 10} m
+                  </Typography>
+                  <Typography className={classes.detailVariablesO}>
+                    {weight / 10} kg
+                  </Typography>
+                  <Typography className={classes.detailVariablesO}>
+                    {base_experience}
+                  </Typography>
+                </Grid>
+              </Grid>
 
-              <Typography>basexp : {base_experience} </Typography>
+              <Typography variant="h5" className={classes.cardTitle}>
+                Types
+              </Typography>
+              <Grid container spacing={0}>
+                <Grid item xs={3} className={classes.detailVariablesCentered}>
+                  {types.map((typeInfo) => {
+                    const { type } = typeInfo;
+                    const { name } = type;
+                    return (
+                      <Typography
+                        style={{ backgroundColor: getColor(types) }}
+                        key={name}
+                      >
+                        {" "}
+                        {`${name}`}
+                      </Typography>
+                    );
+                  })}
+                </Grid>
+                <Grid
+                  item
+                  xs={3}
+                  className={classes.detailVariablesCentered}
+                ></Grid>
+              </Grid>
             </Grid>
           </Grid>
         </Card>
