@@ -70,10 +70,16 @@ const newStyles = makeStyles((theme) => ({
   detailVariablesV: {
     fontFamily: "Verdana",
     fontSize: "20px",
+    fontWeight: "bold",
   },
   detailVariablesO: {
     fontFamily: "alata",
     fontSize: "20px",
+  },
+  typesFix: {
+    textAlign: "center",
+    fontSize: "20px",
+    fontFamily: "Verdana",
   },
 }));
 
@@ -117,7 +123,18 @@ const Pokemon = (props) => {
       base_experience,
     } = pokemon;
 
+    const type1 = types["0"].type.name;
+    const type2 = types["1"].type.name;
+    const inches = (pokemon.height * 3.93701).toFixed(0);
+    const feet = Math.floor(Number(inches) / 12);
+
     const fullPic = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+
+    function typeChecker() {
+      const fullType = "";
+      if (types["1"].type.name !== undefined) {
+      }
+    }
 
     return (
       <div className={classes.root}>
@@ -158,7 +175,9 @@ const Pokemon = (props) => {
                 </Grid>
                 <Grid item xs={3} className={classes.detailVariablesCentered}>
                   <Typography className={classes.detailVariablesO}>
-                    {height / 10} m
+                    {`${feet}'${leftPad(Number(inches) % 12, 2)} " (${
+                      pokemon.height / 10
+                    }m)`}
                   </Typography>
                   <Typography className={classes.detailVariablesO}>
                     {weight / 10} kg
@@ -177,15 +196,7 @@ const Pokemon = (props) => {
                   {types.map((typeInfo) => {
                     const { type } = typeInfo;
                     const { name } = type;
-                    return (
-                      <Typography
-                        style={{ backgroundColor: getColor(types) }}
-                        key={name}
-                      >
-                        {" "}
-                        {`${name}`}
-                      </Typography>
-                    );
+                    return <Typography key={name}> {`${name}`}</Typography>;
                   })}
                 </Grid>
                 <Grid
