@@ -4,10 +4,12 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import spinner from "../layout/spinner.gif";
+import leftPad from "left-pad";
+import "@fontsource/alata";
 
 const Sprite = styled.img`
-  width: 5em;
-  height: 5em;
+  width: 10em;
+  height: 10em;
   display: none;
 `;
 
@@ -51,7 +53,7 @@ export default class PokemonCard extends Component {
 
     const pokemonIndex = url.split("/")[url.split("/").length - 2];
     //const imageUrl = `./sprites/pokemon/${pokemonIndex}.png`;
-    const imageUrl = `https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/${pokemonIndex}.png?raw=true`;
+    const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonIndex}.png`;
 
     this.setState({ name, imageUrl, pokemonIndex });
   }
@@ -61,16 +63,19 @@ export default class PokemonCard extends Component {
       <div className="col-md-3 col-sm-6 mb-5">
         <StyledLink to={`pokemon/${this.state.pokemonIndex}`}>
           <Card className="card">
-            <h5 className="card-header">{this.state.pokemonIndex}</h5>
+            <h5 className="card-header">
+              {"# "}
+              {leftPad(this.state.pokemonIndex, 3, 0)}
+            </h5>
             {this.state.imageLoading ? (
               <img
                 src={spinner}
                 style={{ width: "5em", height: "5em" }}
-                className="card-img-top rounded mx-auto d-block mt-2"
+                className="card-img-top rounded mx-auto d-block mt-3"
               />
             ) : null}
             <Sprite
-              className="card-img-top rounded mx-auto mt-2"
+              className="card-img-top rounded mx-auto mt-4"
               src={this.state.imageUrl}
               onLoad={() => this.setState({ imageLoading: false })}
               onError={() => this.setState({ toManyRequests: true })}
@@ -90,13 +95,13 @@ export default class PokemonCard extends Component {
               </h6>
             ) : null}
             <div className="card-body mx-auto">
-              <h6 className="card-title">
+              <h5 className="card-title" style={{ fontFamily: "alata" }}>
                 {this.state.name
                   .toLowerCase()
                   .split(" ")
                   .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
                   .join(" ")}
-              </h6>
+              </h5>
             </div>
           </Card>
         </StyledLink>

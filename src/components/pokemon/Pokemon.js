@@ -1,5 +1,8 @@
 import React, { Component } from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 import Axios from "axios";
+import "@fontsource/alata";
 
 const TYPE_COLORS = {
   bug: "B1C12E",
@@ -21,6 +24,21 @@ const TYPE_COLORS = {
   steel: "B5B5C3",
   water: "3295F6",
 };
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: Red;
+  font-family: alata;
+  font-size: 1.7rem;
+
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+  }
+`;
 
 export default class Pokemon extends Component {
   state = {
@@ -62,7 +80,7 @@ export default class Pokemon extends Component {
     const pokemonRes = await Axios.get(pokemonUrl);
 
     const name = pokemonRes.data.name;
-    const imageUrl = pokemonRes.data.sprites.front_default;
+    const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonIndex}.png`;
 
     let { hp, attack, defense, speed, specialAttack, specialDefense } = "";
 
@@ -189,32 +207,14 @@ export default class Pokemon extends Component {
   render() {
     return (
       <div className="col">
+        <StyledLink to={`/`}> Go back</StyledLink>
         <div className="card">
           <div className="card-header">
             <div className="row">
               <div className="col-5">
                 <h5>{this.state.pokemonIndex}</h5>
               </div>
-              <div className="col-7">
-                <div className="float-right">
-                  {this.state.types.map((type) => (
-                    <span
-                      key={type}
-                      className="badge badge-pill mr-1"
-                      style={{
-                        backgroundColor: `#${TYPE_COLORS[type]}`,
-                        color: "white",
-                      }}
-                    >
-                      {type
-                        .toLowerCase()
-                        .split(" ")
-                        .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
-                        .join(" ")}
-                    </span>
-                  ))}
-                </div>
-              </div>
+              <div className="col-7"></div>
             </div>
           </div>
           <div className="card-body">
@@ -371,6 +371,24 @@ export default class Pokemon extends Component {
               <div className="col">
                 <p className="">{this.state.description}</p>
               </div>
+              <div className="float-left">
+                {this.state.types.map((type) => (
+                  <span
+                    key={type}
+                    className="badge badge-pill mr-1"
+                    style={{
+                      backgroundColor: `#${TYPE_COLORS[type]}`,
+                      color: "white",
+                    }}
+                  >
+                    {type
+                      .toLowerCase()
+                      .split(" ")
+                      .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+                      .join(", ")}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
           <hr />
@@ -413,7 +431,7 @@ export default class Pokemon extends Component {
                         aria-valuemin="0"
                         aria-valuemax="100"
                       >
-                        <small>{this.state.genderRatioFemale}</small>
+                        <small>{this.state.genderRatioFemale} F</small>
                       </div>
                       <div
                         class="progress-bar"
@@ -426,7 +444,7 @@ export default class Pokemon extends Component {
                         aria-valuemin="0"
                         aria-valuemax="100"
                       >
-                        <small>{this.state.genderRatioMale}</small>
+                        <small>{this.state.genderRatioMale} M</small>
                       </div>
                     </div>
                   </div>
