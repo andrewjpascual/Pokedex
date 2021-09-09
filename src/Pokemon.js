@@ -76,10 +76,10 @@ const newStyles = makeStyles((theme) => ({
     fontFamily: "alata",
     fontSize: "20px",
   },
-  typesFix: {
+  typesOut: {
     textAlign: "center",
     fontSize: "20px",
-    fontFamily: "Verdana",
+    fontFamily: "alata",
   },
 }));
 
@@ -175,7 +175,7 @@ const Pokemon = (props) => {
                 </Grid>
                 <Grid item xs={3} className={classes.detailVariablesCentered}>
                   <Typography className={classes.detailVariablesO}>
-                    {`${feet}'${leftPad(Number(inches) % 12, 2)} " (${
+                    {`${feet}'${leftPad(Number(inches) % 12, 2)}" (${
                       pokemon.height / 10
                     }m)`}
                   </Typography>
@@ -196,7 +196,15 @@ const Pokemon = (props) => {
                   {types.map((typeInfo) => {
                     const { type } = typeInfo;
                     const { name } = type;
-                    return <Typography key={name}> {`${name}`}</Typography>;
+                    return (
+                      <pre
+                        style={{ display: "inline-grid" }}
+                        key={name}
+                        className={classes.typesOut}
+                      >
+                        {`${name} `}
+                      </pre>
+                    );
                   })}
                 </Grid>
                 <Grid
