@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Axios from "axios";
 import "@fontsource/alata";
+import leftPad from "left-pad";
 
 const TYPE_COLORS = {
   bug: "B1C12E",
@@ -47,6 +48,7 @@ export default class Pokemon extends Component {
     imageUrl: "",
     types: [],
     description: "",
+    foreign: "",
     statTitleWidth: 3,
     statBarWidth: 9,
     stats: {
@@ -109,7 +111,7 @@ export default class Pokemon extends Component {
       }
     });
 
-    // Convert Decimeters to Feet... The + 0.0001 * 100 ) / 100 is for rounding to two decimal places :)
+    // Convert Decimeters to Feet... The + 0.0001 * 100 ) / 100 is for rounding to two decimal places
     const height =
       Math.round((pokemonRes.data.height * 0.328084 + 0.00001) * 100) / 100;
 
@@ -119,6 +121,7 @@ export default class Pokemon extends Component {
     const types = pokemonRes.data.types.map((type) => type.type.name);
 
     const themeColor = `${TYPE_COLORS[types[types.length - 1]]}`;
+    const themeColor2 = `${TYPE_COLORS[types["0"]]}`;
 
     const abilities = pokemonRes.data.abilities
       .map((ability) => {
@@ -146,7 +149,7 @@ export default class Pokemon extends Component {
       })
       .join(", ");
 
-    // Get Pokemon Description .... Is from a different end point uggh
+    // Get Pokemon Description .... From second end point
     await Axios.get(pokemonSpeciesUrl).then((res) => {
       let description = "";
       res.data.flavor_text_entries.some((flavor) => {
@@ -155,6 +158,15 @@ export default class Pokemon extends Component {
           return;
         }
       });
+
+      let foreign = "";
+      res.data.names.some((nameso) => {
+        if (nameso.language.name === "ja") {
+          foreign = nameso.name;
+          return;
+        }
+      });
+
       const femaleRate = res.data["gender_rate"];
       const genderRatioFemale = 12.5 * femaleRate;
       const genderRatioMale = 12.5 * (8 - femaleRate);
@@ -197,6 +209,7 @@ export default class Pokemon extends Component {
         specialDefense,
       },
       themeColor,
+      themeColor2,
       height,
       weight,
       abilities,
@@ -208,31 +221,36 @@ export default class Pokemon extends Component {
     return (
       <div className="col">
         <StyledLink to={`/`}> Go back</StyledLink>
-        <div className="card">
-          <div className="card-header">
-            <div className="row">
-              <div className="col-5">
-                <h5>{this.state.pokemonIndex}</h5>
-              </div>
-              <div className="col-7"></div>
-            </div>
-          </div>
+        <h3>{this.state.foreign}</h3>
+        <div className="card" class="shadow p-3 mb-5 bg-body rounded">
           <div className="card-body">
             <div className="row align-items-center">
-              <div className=" col-md-3 ">
+              <div
+                className="col-md-5 rounded shadow"
+                style={{
+                  backgroundColor: `#${this.state.themeColor2}`,
+                }}
+              >
+                <h1 style={{ fontFamily: "alata", color: "white" }}>
+                  #{leftPad(this.state.pokemonIndex, 3, 0)}
+                </h1>
                 <img
                   src={this.state.imageUrl}
                   className="card-img-top rounded mx-auto mt-2"
                 />
               </div>
-              <div className="col-md-9">
-                <h4 className="mx-auto">
+
+              <div className="col-md-7">
+                <h1
+                  className="mx-auto"
+                  style={{ textAlign: "center", fontFamily: "alata" }}
+                >
                   {this.state.name
                     .toLowerCase()
                     .split(" ")
                     .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
                     .join(" ")}
-                </h4>
+                </h1>
                 <div className="row align-items-center">
                   <div className={`col-12 col-md-${this.state.statTitleWidth}`}>
                     HP
@@ -240,7 +258,7 @@ export default class Pokemon extends Component {
                   <div className={`col-12 col-md-${this.state.statBarWidth}`}>
                     <div className="progress">
                       <div
-                        className="progress-bar "
+                        className="progress-bar  "
                         role="progressbar"
                         style={{
                           width: `${this.state.stats.hp}%`,
@@ -365,35 +383,42 @@ export default class Pokemon extends Component {
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div className="row mt-1">
-              <div className="col">
-                <p className="">{this.state.description}</p>
-              </div>
-              <div className="float-left">
-                {this.state.types.map((type) => (
-                  <span
-                    key={type}
-                    className="badge badge-pill mr-1"
-                    style={{
-                      backgroundColor: `#${TYPE_COLORS[type]}`,
-                      color: "white",
-                    }}
+                <br />
+                <div className="row ">
+                  <div
+                    className="col"
+                    style={{ fontFamily: "alata", fontSize: "20px" }}
                   >
-                    {type
-                      .toLowerCase()
-                      .split(" ")
-                      .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
-                      .join(", ")}
-                  </span>
-                ))}
+                    <p className="">" {this.state.description} "</p>
+                  </div>
+                  <div style={{ textAlign: "center", marginTop: "10px" }}>
+                    {this.state.types.map((type) => (
+                      <span
+                        key={type}
+                        className="badge badge-pill mr-1"
+                        style={{
+                          backgroundColor: `#${TYPE_COLORS[type]}`,
+                          color: "white",
+                          fontSize: "15px",
+                        }}
+                      >
+                        {type
+                          .toLowerCase()
+                          .split(" ")
+                          .map(
+                            (s) => s.charAt(0).toUpperCase() + s.substring(1)
+                          )
+                          .join(" ,  ")}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
           <hr />
           <div className="card-body">
-            <h5 class="card-title text-center">Profile</h5>
+            <h5 class="card-title text-center">Pokémon Data</h5>
             <div className="row">
               <div className="col-md-6">
                 <div className="row">
@@ -431,7 +456,7 @@ export default class Pokemon extends Component {
                         aria-valuemin="0"
                         aria-valuemax="100"
                       >
-                        <small>{this.state.genderRatioFemale} F</small>
+                        <small>{this.state.genderRatioFemale}% </small>
                       </div>
                       <div
                         class="progress-bar"
@@ -444,7 +469,7 @@ export default class Pokemon extends Component {
                         aria-valuemin="0"
                         aria-valuemax="100"
                       >
-                        <small>{this.state.genderRatioMale} M</small>
+                        <small>{this.state.genderRatioMale}% </small>
                       </div>
                     </div>
                   </div>
@@ -479,12 +504,6 @@ export default class Pokemon extends Component {
                 </div>
               </div>
             </div>
-          </div>
-          <div class="card-footer text-muted">
-            Data From{" "}
-            <a href="https://pokeapi.co/" target="_blank" className="card-link">
-              PokeAPI.co
-            </a>
           </div>
         </div>
       </div>

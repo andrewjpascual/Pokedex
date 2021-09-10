@@ -45,18 +45,21 @@ export default class NavBar extends Component {
           this.state.hoverNavBar
             ? {
                 boxShadow:
-                  "0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)",
+                  "0 2px 3px rgba(0, 0, 0, 0.4), 0 3px 2px rgba(0, 0, 0, 0.24)",
                 transition: "all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)",
                 backgroundColor: "#ef5350 !important",
               }
-            : { backgroundColor: "transparent !important" }
+            : {
+                backgroundColor: "transparent !important",
+              }
         }
       >
         <Branding
-          href="#"
+          href="/"
           className="navbar-brand col-sm-3 col-md-2 mr-0 align-items-center"
+          style={{ marginLeft: "47%" }}
         >
-          RéactDex
+          Pokédex React
         </Branding>
       </nav>
     );

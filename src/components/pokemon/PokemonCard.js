@@ -44,16 +44,17 @@ export default class PokemonCard extends Component {
     name: "",
     imageUrl: "",
     pokemonIndex: "",
+
     imageLoading: true,
     toManyRequests: false,
   };
 
   componentDidMount() {
     const { name, url } = this.props;
-
+    const typess = this.types;
     const pokemonIndex = url.split("/")[url.split("/").length - 2];
     //const imageUrl = `./sprites/pokemon/${pokemonIndex}.png`;
-    const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonIndex}.png`;
+    const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonIndex}.png`;
 
     this.setState({ name, imageUrl, pokemonIndex });
   }
@@ -64,7 +65,7 @@ export default class PokemonCard extends Component {
         <StyledLink to={`pokemon/${this.state.pokemonIndex}`}>
           <Card className="card">
             <h5 className="card-header">
-              {"# "}
+              {"#"}
               {leftPad(this.state.pokemonIndex, 3, 0)}
             </h5>
             {this.state.imageLoading ? (
@@ -94,6 +95,7 @@ export default class PokemonCard extends Component {
                 </span>
               </h6>
             ) : null}
+
             <div className="card-body mx-auto">
               <h5 className="card-title" style={{ fontFamily: "alata" }}>
                 {this.state.name
