@@ -2,14 +2,20 @@
   background-position: center;
 
   background-color: #fafafa;
-  padding-top: 6rem;
+  padding-top: 4rem;
   min-height: 100vh;
 }
 
 .navbar {
-  background-color: #ff1919 !important;
+  background-color: #cc0000 !important;
+  position: fixed;
+  top: 0;
 }
 
 body {
   background-color: transparent !important;
+}
+
+.form-control {
+  color: #fff;
 }

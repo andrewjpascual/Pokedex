@@ -7,7 +7,7 @@ import "./App.css";
 
 import NavBar from "./components/layout/NavBar";
 import Dashboard from "./components/layout/Dashboard";
-import SearchBar from "./components/layout/SearchBar";
+
 import Pokemon from "./components/pokemon/Pokemon";
 
 class App extends Component {
@@ -16,6 +16,7 @@ class App extends Component {
       <Router>
         <div className="App">
           <NavBar />
+
           <div className="container">
             <Switch>
               <Route exact path="/" component={Dashboard} />

@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import PokemonCard from "./PokemonCard";
 import Loading from "../layout/Loading";
 import axios from "axios";
+import SearchBar from "../layout/SearchBar";
 
 export default class PokemonList extends Component {
   state = {
@@ -18,6 +19,7 @@ export default class PokemonList extends Component {
   render() {
     return (
       <div>
+        <SearchBar />
         {this.state.pokemon ? (
           <div className="row">
             {this.state.pokemon.map((pokemon) => (

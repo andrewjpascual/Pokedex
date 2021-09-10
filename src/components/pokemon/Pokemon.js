@@ -160,9 +160,9 @@ export default class Pokemon extends Component {
       });
 
       let foreign = "";
-      res.data.names.some((nameso) => {
-        if (nameso.language.name === "ja") {
-          foreign = nameso.name;
+      res.data.names.some((nameres) => {
+        if (nameres.language.name === "ja") {
+          foreign = nameres.name;
           return;
         }
       });
@@ -187,6 +187,7 @@ export default class Pokemon extends Component {
 
       this.setState({
         description,
+        foreign,
         genderRatioFemale,
         genderRatioMale,
         catchRate,
@@ -221,7 +222,7 @@ export default class Pokemon extends Component {
     return (
       <div className="col">
         <StyledLink to={`/`}> Go back</StyledLink>
-        <h3>{this.state.foreign}</h3>
+
         <div className="card" class="shadow p-3 mb-5 bg-body rounded">
           <div className="card-body">
             <div className="row align-items-center">
@@ -231,12 +232,30 @@ export default class Pokemon extends Component {
                   backgroundColor: `#${this.state.themeColor2}`,
                 }}
               >
-                <h1 style={{ fontFamily: "alata", color: "white" }}>
+                <h3 style={{ fontFamily: "alata", color: "white" }}>
                   #{leftPad(this.state.pokemonIndex, 3, 0)}
-                </h1>
+                </h3>
+                <h3
+                  style={{
+                    textAlign: "center",
+                    fontFamily: "alata",
+                    color: "white",
+                    fontSize: "60px",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {this.state.foreign}
+                </h3>
+
                 <img
                   src={this.state.imageUrl}
                   className="card-img-top rounded mx-auto mt-2"
+                  style={{
+                    height: "70%",
+                    width: "70%",
+                    display: "block",
+                    margin: "auto",
+                  }}
                 />
               </div>
 
@@ -252,7 +271,10 @@ export default class Pokemon extends Component {
                     .join(" ")}
                 </h1>
                 <div className="row align-items-center">
-                  <div className={`col-12 col-md-${this.state.statTitleWidth}`}>
+                  <div
+                    className={`col-12 col-md-${this.state.statTitleWidth}`}
+                    style={{ textAlign: "center", fontFamily: "alata" }}
+                  >
                     HP
                   </div>
                   <div className={`col-12 col-md-${this.state.statBarWidth}`}>
@@ -274,7 +296,10 @@ export default class Pokemon extends Component {
                   </div>
                 </div>
                 <div className="row align-items-center">
-                  <div className={`col-12 col-md-${this.state.statTitleWidth}`}>
+                  <div
+                    className={`col-12 col-md-${this.state.statTitleWidth}`}
+                    style={{ textAlign: "center", fontFamily: "alata" }}
+                  >
                     Attack
                   </div>
                   <div className={`col-12 col-md-${this.state.statBarWidth}`}>
@@ -296,7 +321,10 @@ export default class Pokemon extends Component {
                   </div>
                 </div>
                 <div className="row align-items-center">
-                  <div className={`col-12 col-md-${this.state.statTitleWidth}`}>
+                  <div
+                    className={`col-12 col-md-${this.state.statTitleWidth}`}
+                    style={{ textAlign: "center", fontFamily: "alata" }}
+                  >
                     Defense
                   </div>
                   <div className={`col-12 col-md-${this.state.statBarWidth}`}>
@@ -318,7 +346,10 @@ export default class Pokemon extends Component {
                   </div>
                 </div>
                 <div className="row align-items-center">
-                  <div className={`col-12 col-md-${this.state.statTitleWidth}`}>
+                  <div
+                    className={`col-12 col-md-${this.state.statTitleWidth}`}
+                    style={{ textAlign: "center", fontFamily: "alata" }}
+                  >
                     Speed
                   </div>
                   <div className={`col-12 col-md-${this.state.statBarWidth}`}>
@@ -340,7 +371,10 @@ export default class Pokemon extends Component {
                   </div>
                 </div>
                 <div className="row align-items-center">
-                  <div className={`col-12 col-md-${this.state.statTitleWidth}`}>
+                  <div
+                    className={`col-12 col-md-${this.state.statTitleWidth}`}
+                    style={{ textAlign: "center", fontFamily: "alata" }}
+                  >
                     Sp Atk
                   </div>
                   <div className={`col-12 col-md-${this.state.statBarWidth}`}>
@@ -362,7 +396,10 @@ export default class Pokemon extends Component {
                   </div>
                 </div>
                 <div className="row align-items-center">
-                  <div className={`col-12 col-md-${this.state.statTitleWidth}`}>
+                  <div
+                    className={`col-12 col-md-${this.state.statTitleWidth}`}
+                    style={{ textAlign: "center", fontFamily: "alata" }}
+                  >
                     Sp Def
                   </div>
                   <div className={`col-12 col-md-${this.state.statBarWidth}`}>
@@ -389,7 +426,9 @@ export default class Pokemon extends Component {
                     className="col"
                     style={{ fontFamily: "alata", fontSize: "20px" }}
                   >
-                    <p className="">" {this.state.description} "</p>
+                    <p className="mt-5 mx-auto  ">
+                      " {this.state.description} "
+                    </p>
                   </div>
                   <div style={{ textAlign: "center", marginTop: "10px" }}>
                     {this.state.types.map((type) => (
@@ -408,7 +447,7 @@ export default class Pokemon extends Component {
                           .map(
                             (s) => s.charAt(0).toUpperCase() + s.substring(1)
                           )
-                          .join(" ,  ")}
+                          .join(", ")}
                       </span>
                     ))}
                   </div>
@@ -418,7 +457,7 @@ export default class Pokemon extends Component {
           </div>
           <hr />
           <div className="card-body">
-            <h5 class="card-title text-center">Pokémon Data</h5>
+            <h5 class="card-title text-center mb-4">Pokémon Training</h5>
             <div className="row">
               <div className="col-md-6">
                 <div className="row">
