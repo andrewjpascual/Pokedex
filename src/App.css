@@ -17,5 +17,6 @@ body {
 }
 
 .form-control {
-  color: #fff;
+  color: rgb(59, 58, 58);
+  width: 110%;
 }
