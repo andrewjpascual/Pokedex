@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PokemonCard from "./PokemonCard";
 import Loading from "../layout/Loading";
 import axios from "axios";
+import { FaGithub } from "react-icons/fa";
 
 export default class PokemonList extends Component {
   state = {
@@ -25,6 +26,7 @@ export default class PokemonList extends Component {
     this.filterPokemon(value);
   };
 
+  //calling this function will filter pokemon based on value
   filterPokemon = (userSearch) => {
     const allPokemon = [...this.state.pokeTemp];
     this.setState({
@@ -37,11 +39,31 @@ export default class PokemonList extends Component {
   render() {
     return (
       <div>
-        <input
-          type="text"
-          value={this.state.searchValue}
-          onChange={this.handleInputChange}
-        />
+        <div class="px-3 py-2 border-bottom mb-3">
+          <div class="container d-flex flex-wrap justify-content-center">
+            <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto">
+              <input
+                type="text"
+                value={this.state.searchValue}
+                onChange={this.handleInputChange}
+                placeholder="Search for Pokémon..."
+              />
+            </form>
+            <div class="text-end">
+              <a
+                href="http://github.com/andrewjpascual"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="icon brands fa-github"
+              >
+                <h3>
+                  <FaGithub />
+                </h3>
+              </a>
+            </div>
+          </div>
+        </div>
+
         {this.state.pokemon ? (
           <div className="row">
             {this.state.pokemon.map((pokemon) => (
