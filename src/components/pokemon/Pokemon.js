@@ -86,7 +86,7 @@ export default class Pokemon extends Component {
 
     let { hp, attack, defense, speed, specialAttack, specialDefense } = "";
 
-    pokemonRes.data.stats.map((stat) => {
+    pokemonRes.data.stats.forEach((stat) => {
       switch (stat.stat.name) {
         case "hp":
           hp = stat["base_stat"];
@@ -152,7 +152,7 @@ export default class Pokemon extends Component {
     // Get Pokemon Description .... From second end point
     await Axios.get(pokemonSpeciesUrl).then((res) => {
       let description = "";
-      res.data.flavor_text_entries.some((flavor) => {
+      res.data.flavor_text_entries.forEach((flavor) => {
         if (flavor.language.name === "en") {
           description = flavor.flavor_text;
           return;
@@ -160,7 +160,7 @@ export default class Pokemon extends Component {
       });
 
       let foreign = "";
-      res.data.names.some((nameres) => {
+      res.data.names.forEach((nameres) => {
         if (nameres.language.name === "ja") {
           foreign = nameres.name;
           return;
@@ -249,6 +249,7 @@ export default class Pokemon extends Component {
 
                 <img
                   src={this.state.imageUrl}
+                  alt="pokemon"
                   className="card-img-top rounded mx-auto mt-2"
                   style={{
                     height: "70%",
