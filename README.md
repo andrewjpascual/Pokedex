@@ -50,7 +50,7 @@ A large portion of this project was inspired by the ShinteiMai pokedex and wanti
 
 These would be my possible implementations in the future: 
   - Adding all pokemon
-  - Filtering such pokemon based on generation
+  - Filtering each pokemon based on generation / type
 
 
 
