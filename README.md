@@ -1,70 +1,56 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React Pokédex
 
-## Available Scripts
+Pokémon website that currently displays info about GEN I Pokémon from the Pokeapi.co API.
 
-In the project directory, you can run:
+Link: 
 
-### `npm start`
+## Table of contents
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+-  [About](#about)
+-  [Technologies](#technologies)
+-  [Features](#features)
+-  [Challenges](#challenges)
+-  [Inspiration](#inspiration)
+-  [To-Do](#to-do)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## About
 
-### `npm test`
+This was my first project that involves a REST API and dynamically displaying the information into the website. With this simple but detailed project I was able to develop a better understanding for React and get a generally good grasp of calling APIs for data. 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Technologies
 
-### `npm run build`
+Project is created with:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+-  ReactJS
+-  Bootstrap
+-  API/JSON (Pokeapi.co)
+-  Axios
+-  Styled components
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Features
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Search pokemons by name
+- Fetch API from: https://pokeapi.co/ and display their JSON data in real time
+- Click on the cards to see full detail of selected Pokémon :
+  - Detailed card includes all types associated with pokemon
+  - Colored stats
+  - Biographical summaries
+- Loading animations
 
-### `npm run eject`
+## Challenges
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+There were two main difficulties during this project, the first being understanding how an API works and how to fetch data. After countless videos and tutorials I managed to grasp the idea of how they are called upon and used. Moreover, the second difficulty being how to implement some new functionalities. As this is my second react project and still being relatively new, I was experimenting with different CSS frameworks such as Material UI but then I transfered over to Bootstrap & Styled components as they were more documented and detailed, making it easier to implement certain features I wanted such as grids and search. Additionally, I struggled implementing the search functionality at first but as I read more about event handling and filtering in React, I found a way to implement search and this may give me more insight as to how I might want to implement more filtering in the future.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Inspiration
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+A large portion of this project was inspired by the ShinteiMai pokedex and wanting to learn about APIs in general. 
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## To-Do
 
-## Learn More
+These would be my possible implementations in the future: 
+  - Adding all pokemon
+  - Filtering each pokemon based on generation / type
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
