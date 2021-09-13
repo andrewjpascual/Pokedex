@@ -7,6 +7,7 @@ import spinner from "../layout/spinner.gif";
 import leftPad from "left-pad";
 import "@fontsource/alata";
 
+//styled components for sprite, card and links to each pokemon
 const Sprite = styled.img`
   width: 10em;
   height: 10em;
@@ -39,6 +40,7 @@ const StyledLink = styled(Link)`
   }
 `;
 
+//initializing state variables for Pokemon Cards
 export default class PokemonCard extends Component {
   state = {
     name: "",
@@ -49,6 +51,7 @@ export default class PokemonCard extends Component {
     toManyRequests: false,
   };
 
+  //Function dealing with the API information
   componentDidMount() {
     const { name, url } = this.props;
 
@@ -59,6 +62,7 @@ export default class PokemonCard extends Component {
     this.setState({ name, imageUrl, pokemonIndex });
   }
 
+  //Render the card and what is on it
   render() {
     return (
       <div className="col-md-3 col-sm-6 mb-5">

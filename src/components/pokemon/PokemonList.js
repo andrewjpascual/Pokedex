@@ -4,6 +4,7 @@ import Loading from "../layout/Loading";
 import axios from "axios";
 import { FaGithub } from "react-icons/fa";
 
+//Parent class and initialize pokemon variables for mapping the cards
 export default class PokemonList extends Component {
   state = {
     url: "https://pokeapi.co/api/v2/pokemon?limit=151/",
@@ -36,6 +37,7 @@ export default class PokemonList extends Component {
     });
   };
 
+  //maps the cards based on search
   render() {
     return (
       <div>

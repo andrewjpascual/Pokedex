@@ -5,6 +5,7 @@ import Axios from "axios";
 import "@fontsource/alata";
 import leftPad from "left-pad";
 
+//setting all the pokemon colors to respective types
 const TYPE_COLORS = {
   bug: "B1C12E",
   dark: "4F3A2D",
@@ -26,6 +27,7 @@ const TYPE_COLORS = {
   water: "3295F6",
 };
 
+//styled component for the back button
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: Red;
@@ -42,6 +44,7 @@ const StyledLink = styled(Link)`
 `;
 
 export default class Pokemon extends Component {
+  //initialize the state variables
   state = {
     name: "",
     pokemonIndex: "",
@@ -71,6 +74,7 @@ export default class Pokemon extends Component {
     themeColor: "#EF5350",
   };
 
+  //Fetching required information function, async to wait for the GET requests
   async componentDidMount() {
     const { pokemonIndex } = this.props.match.params;
 
@@ -78,12 +82,12 @@ export default class Pokemon extends Component {
     const pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonIndex}/`;
     const pokemonSpeciesUrl = `https://pokeapi.co/api/v2/pokemon-species/${pokemonIndex}/`;
 
-    // Get Pokemon Information
+    // Get basic Pokemon Information
     const pokemonRes = await Axios.get(pokemonUrl);
-
     const name = pokemonRes.data.name;
     const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonIndex}.png`;
 
+    //stating empty variables to assign them in the following forEach method
     let { hp, attack, defense, speed, specialAttack, specialDefense } = "";
 
     pokemonRes.data.stats.forEach((stat) => {
@@ -118,11 +122,14 @@ export default class Pokemon extends Component {
     const weight =
       Math.round((pokemonRes.data.weight * 0.220462 + 0.00001) * 100) / 100;
 
+    //maps each type for each pokemon, returning us the array of types into const types
     const types = pokemonRes.data.types.map((type) => type.type.name);
 
+    //Grab color for the 2nd type and the 1st type
     const themeColor = `${TYPE_COLORS[types[types.length - 1]]}`;
     const themeColor2 = `${TYPE_COLORS[types["0"]]}`;
 
+    //mapping through the abilities and returning them
     const abilities = pokemonRes.data.abilities
       .map((ability) => {
         return ability.ability.name
@@ -133,6 +140,7 @@ export default class Pokemon extends Component {
       })
       .join(", ");
 
+    //filtering any EVs that require effort
     const evs = pokemonRes.data.stats
       .filter((stat) => {
         if (stat.effort > 0) {
@@ -159,6 +167,7 @@ export default class Pokemon extends Component {
         }
       });
 
+      //This is the cool Japanese logo behind each pokemon
       let foreign = "";
       res.data.names.forEach((nameres) => {
         if (nameres.language.name === "ja") {
@@ -167,12 +176,14 @@ export default class Pokemon extends Component {
         }
       });
 
+      //Grabbing the female and male ratios for the pokemon
       const femaleRate = res.data["gender_rate"];
       const genderRatioFemale = 12.5 * femaleRate;
       const genderRatioMale = 12.5 * (8 - femaleRate);
 
       const catchRate = Math.round((100 / 255) * res.data["capture_rate"]);
 
+      //This is grabbing the species for each pokemon
       const eggGroups = res.data["egg_groups"]
         .map((group) => {
           return group.name
@@ -185,6 +196,7 @@ export default class Pokemon extends Component {
 
       const hatchSteps = 255 * (res.data["hatch_counter"] + 1);
 
+      //This sets the new state for our variables
       this.setState({
         description,
         foreign,
@@ -196,6 +208,7 @@ export default class Pokemon extends Component {
       });
     });
 
+    //This sets the new state for our variables
     this.setState({
       imageUrl,
       pokemonIndex,
@@ -218,6 +231,7 @@ export default class Pokemon extends Component {
     });
   }
 
+  //Return and render out the page for each individual pokemon
   render() {
     return (
       <div className="col">
