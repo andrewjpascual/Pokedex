@@ -49,8 +49,8 @@ A large portion of this project was inspired by the ShinteiMai pokedex and wanti
 ## To-Do
 
 These would be my possible implementations in the future: 
-  - Adding all pokemon
-  - Filtering each pokemon based on generation / type
+  - Adding all pokemon :heavy_check_mark:
+  - Filtering each pokemon based on generation / type :heavy_check_mark:
 
 
 
