@@ -16,7 +16,7 @@ Link:
 
 ## About
 
-This was my first project that involves a REST API and dynamically displaying the information into the website. With this simple but detailed project I was able to develop a better understanding for React and get a generally good grasp of calling APIs for data. 
+This was my first project that involves a REST API and dynamically displaying the information into the website. With this simple but detailed project I was able to develop a better understanding for React and calling APIs for data. 
 
 ## Technologies
 
