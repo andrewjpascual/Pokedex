@@ -3,6 +3,7 @@ import PokemonCard from "./PokemonCard";
 import Loading from "../layout/Loading";
 import axios from "axios";
 import { FaGithub } from "react-icons/fa";
+import "@fontsource/alata";
 
 //Parent class and initialize pokemon variables for mapping the cards
 export default class PokemonList extends Component {
@@ -142,26 +143,48 @@ export default class PokemonList extends Component {
         <div class="px-3 py-2 border-bottom mb-3">
           <div class="container d-flex flex-wrap justify-content-center">
             <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto">
-              <input
-                type="text"
-                value={this.state.searchValue}
-                onChange={this.handleInputChange}
-                placeholder="Search for Pokémon..."
-              />
-              <select
-                id="gen"
-                onChange={this.handleCatChange}
-                value={this.state.catValue}
+              <div
+                class="inputs"
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                }}
               >
-                <option value="1">GEN1</option>
-                <option value="2">GEN2</option>
-                <option value="3">GEN3</option>
-                <option value="4">GEN4</option>
-                <option value="5">GEN5</option>
-                <option value="6">GEN6</option>
-                <option value="7">GEN7</option>
-                <option value="8">ALL</option>
-              </select>
+                <input
+                  class="form-control "
+                  type="text"
+                  value={this.state.searchValue}
+                  onChange={this.handleInputChange}
+                  style={{
+                    display: "grid",
+                    marginTop: "20px",
+                    position: "static",
+                  }}
+                  placeholder="Search for Pokémon..."
+                />
+
+                <select
+                  class="dropdown-menu"
+                  id="gen"
+                  onChange={this.handleCatChange}
+                  value={this.state.catValue}
+                  style={{
+                    display: "grid",
+                    marginTop: "20px",
+                    position: "static",
+                    fontFamily: "alata",
+                  }}
+                >
+                  <option value="1">GEN 1</option>
+                  <option value="2">GEN 2</option>
+                  <option value="3">GEN 3</option>
+                  <option value="4">GEN 4</option>
+                  <option value="5">GEN 5</option>
+                  <option value="6">GEN 6</option>
+                  <option value="7">GEN 7</option>
+                  <option value="8">ALL</option>
+                </select>
+              </div>
             </form>
 
             <div class="text-end">
@@ -171,9 +194,9 @@ export default class PokemonList extends Component {
                 rel="noopener noreferrer"
                 class="icon brands fa-github"
               >
-                <h3>
+                <h2>
                   <FaGithub />
-                </h3>
+                </h2>
               </a>
             </div>
           </div>

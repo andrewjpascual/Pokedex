@@ -19,3 +19,11 @@ body {
   color: rgb(59, 58, 58);
   width: 110%;
 }
+
+.inputs {
+  grid-row-gap: 1rem;
+  row-gap: 1rem;
+  grid-column-gap: 0.5rem;
+  -webkit-column-gap: 1rem;
+  column-gap: 0.5rem;
+}
