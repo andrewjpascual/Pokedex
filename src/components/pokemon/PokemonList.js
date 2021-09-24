@@ -60,6 +60,7 @@ export default class PokemonList extends Component {
 
   //user search for pokemon
   handleInputChange = (event) => {
+    event.preventDefault();
     const value = event.target.value;
     this.setState({ searchValue: value });
     this.filterPokemon(value);
