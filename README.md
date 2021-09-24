@@ -1,7 +1,7 @@
 
 # React Pokédex
 
-Pokémon website that currently displays info about GEN I Pokémon from the Pokeapi.co API.
+Pokémon website that currently displays info about GEN 1 to GEN 7 Pokémon from the Pokeapi.co API.
 
 Link: 
 
@@ -40,7 +40,7 @@ Project is created with:
 
 ## Challenges
 
-There were two main difficulties during this project, the first being understanding how an API works and how to fetch data. After countless videos and tutorials I managed to grasp the idea of how they are called upon and used. Moreover, the second difficulty being how to implement some new functionalities. As this is my second react project and still being relatively new, I was experimenting with different CSS frameworks such as Material UI but then I transfered over to Bootstrap & Styled components as they were more documented and detailed, making it easier to implement certain features I wanted such as grids and search. Additionally, I struggled implementing the search functionality at first but as I read more about event handling and filtering in React, I found a way to implement search and this may give me more insight as to how I might want to implement more filtering in the future.
+There were two main difficulties during this project, the first being understanding how an API works and how to fetch data. After countless videos and tutorials I managed to grasp the idea of how they are called upon and used. Moreover, the second difficulty being how to implement some new functionalities. As this is my second react project and still being relatively new, I was experimenting with different CSS frameworks such as Material UI but then I transfered over to Bootstrap & Styled components as they were more documented and detailed, making it easier to implement specific features. Additionally, I struggled implementing the search functionality at first but as I read more about event handling and filtering in React, I found a way to implement search and this allowed me to develop the generation filtering as well.
 
 ## Inspiration
 
