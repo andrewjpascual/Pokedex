@@ -3,7 +3,7 @@
 
 Pokémon website that currently displays info about GEN 1 to GEN 7 Pokémon from the Pokeapi.co API.
 
-Link: 
+Link: https://pokedex-ap.netlify.app
 
 ## Table of contents
 
